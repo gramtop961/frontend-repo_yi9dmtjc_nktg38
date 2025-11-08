@@ -1,5 +1,6 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const projects = [
   {
@@ -58,31 +59,47 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-16 bg-white">
+    <section id="projects" className="py-20 bg-slate-950/95 text-slate-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl font-bold text-slate-900">Projects</h2>
-        <p className="text-slate-600 mt-2">Highlighted work across AI, SaaS, and enterprise systems.</p>
+        <div className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Projects</h2>
+          <p className="text-slate-400 mt-2">Highlighted work across AI, SaaS, and enterprise systems.</p>
+        </div>
 
-        <div className="mt-8 grid md:grid-cols-2 gap-6">
+        <div className="mt-10 grid md:grid-cols-2 gap-6">
           {projects.map((p) => (
-            <div key={p.title} className="rounded-2xl border border-slate-200 p-5 hover:shadow-lg transition-shadow bg-white">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-slate-900">{p.title}</h3>
-                  <p className="text-sm text-slate-600">{p.org}</p>
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+              className="rounded-2xl p-[1px] bg-gradient-to-br from-fuchsia-500/30 via-sky-500/20 to-transparent"
+            >
+              <div className="rounded-2xl h-full bg-slate-900/60 border border-slate-800 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">{p.title}</h3>
+                    <p className="text-sm text-slate-300">{p.org}</p>
+                  </div>
+                  {p.link && (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-sky-300 hover:text-sky-200"
+                    >
+                      Visit <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
-                {p.link && (
-                  <a href={p.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sky-600 hover:underline">
-                    Visit <ExternalLink className="w-4 h-4" />
-                  </a>
-                )}
+                <ul className="mt-3 list-disc list-inside text-slate-200 space-y-1">
+                  {p.points.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
               </div>
-              <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
-                {p.points.map((x) => (
-                  <li key={x}>{x}</li>
-                ))}
-              </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

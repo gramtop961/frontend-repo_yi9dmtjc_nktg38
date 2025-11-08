@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const experiences = [
   {
@@ -64,28 +65,37 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-16 bg-slate-50">
+    <section id="experience" className="py-20 bg-slate-950 text-slate-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl font-bold text-slate-900">Professional Experience</h2>
-        <p className="text-slate-600 mt-2">6+ years building scalable, secure, and user-centered software.</p>
+        <div className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Experience</h2>
+          <p className="text-slate-400 mt-2">6+ years building scalable, secure, and user‑centered software.</p>
+        </div>
 
-        <div className="mt-8 space-y-6">
+        <div className="mt-10 space-y-6">
           {experiences.map((exp) => (
-            <div key={exp.role + exp.period} className="rounded-2xl border border-slate-200 bg-white p-5">
+            <motion.div
+              key={exp.role + exp.period}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+              className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5"
+            >
               <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
                 <div>
-                  <h3 className="text-xl font-semibold text-slate-900">{exp.role}</h3>
-                  <p className="text-slate-700">{exp.org}</p>
+                  <h3 className="text-xl font-semibold text-white">{exp.role}</h3>
+                  <p className="text-slate-300">{exp.org}</p>
                 </div>
-                <p className="text-sm text-slate-500">{exp.period}</p>
+                <p className="text-sm text-slate-400">{exp.period}</p>
               </div>
-              <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
+              <ul className="mt-3 list-disc list-inside text-slate-200 space-y-1">
                 {exp.points.map((p) => (
                   <li key={p}>{p}</li>
                 ))}
               </ul>
-              <p className="mt-3 text-sm text-slate-500"><span className="font-medium text-slate-700">Technologies:</span> {exp.tech}</p>
-            </div>
+              <p className="mt-3 text-sm text-slate-400"><span className="font-medium text-slate-200">Technologies:</span> {exp.tech}</p>
+            </motion.div>
           ))}
         </div>
       </div>
